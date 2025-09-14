@@ -4,5 +4,5 @@
 #include "../include/sched.h"
 
 void buff_main(){
-    Print(L"[6] FS BUFFER\n");  
+    Print(L"[6] FS BUFFER\n"); 
 }
