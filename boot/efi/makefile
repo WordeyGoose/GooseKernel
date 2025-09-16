@@ -15,22 +15,24 @@ boot.o : boot.c
 	gcc -I../../../gnu-efi/inc -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
 
 ../../init/init.o: ../../init/init.c
+	gcc -I../../../gnu-efi/inc -I../../include/ -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
+
+../../fs/exfs.o : ../../exfs/fs.c
 	gcc -I../../../gnu-efi/inc -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
 
-../../fs/fs.o : ../../fs/fs.c
+../../exfs/buffer.o : ../../exfs/buffer.c
 	gcc -I../../../gnu-efi/inc -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
 
-../../fs/buffer.o : ../../fs/buffer.c
-	gcc -I../../../gnu-efi/inc -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
+../../drivers/sound.o : ../../drivers/sound/driver.c
+	gcc -I../../include/ -c $< -o $@
 
-
-booti.so: boot.o ../../init/init.o ../../fs/fs.o ../../fs/buffer.o
+booti.so: boot.o ../../init/init.o ../../exfs/fs.o ../../exfs/buffer.o ../../drivers/sound.o
 	ld -shared -Bsymbolic \
 		-L../../../gnu-efi/x86_64/lib \
 		-L../../../gnu-efi/x86_64/gnuefi \
 		-T ../../../gnu-efi/gnuefi/elf_x86_64_efi.lds \
 		../../../gnu-efi/x86_64/gnuefi/crt0-efi-x86_64.o \
-		boot.o ../../init/init.o ../../fs/fs.o ../../fs/buffer.o \
+		boot.o ../../init/init.o ../../exfs/fs.o ../../exfs/buffer.o ../../drivers/sound.o \
 		-o booti.so -lgnuefi -lefi
 clean:
 	rm -rf boot.o
@@ -40,6 +42,7 @@ clean:
 	rm -rf ../../../Goose/uefi.img
 	rm -rf /tmp/part.img
 	rm -rf booti.so
-	rm -rf ../../fs/fs.o
+	rm -rf ../../exfs/fs.o
 	rm -rf ../../init/init.o
-	rm -rf ../../fs/buffer.o
+	rm -rf ../../exfs/buffer.o
+	rm -rf ../../drivers/audio.o
