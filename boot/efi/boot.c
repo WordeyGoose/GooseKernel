@@ -1,4 +1,4 @@
-#include "../../include/sys/init.h"
+#include <sys/init.h>
 #include <efi.h>
 #include <efilib.h>
 
