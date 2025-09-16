@@ -17,11 +17,11 @@ boot.o : boot.c
 ../../init/init.o: ../../init/init.c
 	gcc -I../../../gnu-efi/inc -I../../include/ -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
 
-../../fs/exfs.o : ../../exfs/fs.c
+../../exfs/fs.o : ../../exfs/fs.c
 	gcc -I../../../gnu-efi/inc -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
 
 ../../exfs/buffer.o : ../../exfs/buffer.c
-	gcc -I../../../gnu-efi/inc -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
+	gcc -I../../include/ -c $< -o $@
 
 ../../drivers/sound.o : ../../drivers/sound/driver.c
 	gcc -I../../include/ -c $< -o $@
