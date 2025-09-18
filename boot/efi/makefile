@@ -46,3 +46,4 @@ clean:
 	rm -rf ../../init/init.o
 	rm -rf ../../exfs/buffer.o
 	rm -rf ../../drivers/audio.o
+	rm -rf ../../drivers/sound.o
