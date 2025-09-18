@@ -7,4 +7,6 @@ mcopy -i /tmp/part.img ../boot/efi/bootx64.efi ::
 mcopy -i /tmp/part.img ../include/sys/init.h ::
 mcopy -i /tmp/part.img ../include/fs/fs.h ::
 mcopy -i /tmp/part.img ../include/sched.h ::
+mcopy -i /tmp/part.img ../include/drivers/sound/sound.h ::
+mcopy -i /tmp/part.img ../drivers/sound/config.h ::
 dd if=/tmp/part.img of=../../Goose/uefi.img bs=512 count=91669 seek=2048 conv=notrunc

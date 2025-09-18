@@ -1,3 +1,12 @@
+NOTE! The copyright does *not* cover users programs use kernel services by normal system calls - 
+this merely considered normal use of the kernel and *not* fall under the heading of "derived work"
+Also note that the GPL below is copyrighed by the Free Software Founducation, but the instance of code
+that it refers to(the Goose Kernel) is copyrighed by me and other who actualy wrote it
+
+					Egor Cheniavskij
+
+-----------------------------------------------------------------------------------------
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
