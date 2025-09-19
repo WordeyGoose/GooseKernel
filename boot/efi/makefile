@@ -12,27 +12,30 @@ boot.so: boot.o
 	ld -shared -Bsymbolic -L../../../gnu-efi/x86_64/lib -L../../../gnu-efi/x86_64/gnuefi -T../../../gnu-efi/gnuefi/elf_x86_64_efi.lds ../../../gnu-efi/x86_64/gnuefi/crt0-efi-x86_64.o boot.o -o boot.so -lgnuefi -lefi
 
 boot.o : boot.c
-	gcc -I../../../gnu-efi/inc -I../../include/ -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
+	clang -I../../../gnu-efi/inc -I../../include/ -c $< -o $@
 
-../../init/init.o: ../../init/init.c
-	gcc -I../../../gnu-efi/inc -I../../include/ -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
+../../../binnaryGoose/init/init.o: ../../init/init.c
+	clang -std=c11 -I../../include/ -I../../drivers/ -c $< -o $@
 
-../../exfs/fs.o : ../../exfs/fs.c
-	gcc -I../../../gnu-efi/inc -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $< -o $@
+../../../binnaryGoose/fs/fs.o : ../../fs/fs.c
+	clang -I../../../gnu-efi/inc -c $< -o $@
 
-../../exfs/buffer.o : ../../exfs/buffer.c
-	gcc -I../../include/ -c $< -o $@
+../../../binnaryGoose/fs/buffer.o : ../../fs/buffer.c
+	clang -I../../include/ -c $< -o $@
 
-../../drivers/sound.o : ../../drivers/sound/driver.c
-	gcc -I../../include/ -c $< -o $@
+../../../binnaryGoose/drivers/sound/sound.o : ../../drivers/sound/driver.c
+	clang -I../../include/ -c $< -o $@
 
-booti.so: boot.o ../../init/init.o ../../exfs/fs.o ../../exfs/buffer.o ../../drivers/sound.o
+../../../binnaryGoose/fs/exfs/dir.o : ../../fs/exfs/dir.c
+	clang -I../../include/ -c $< -o $@
+
+booti.so: boot.o ../../../binnaryGoose/init/init.o ../../../binnaryGoose/fs/fs.o ../../../binnaryGoose/fs/buffer.o ../../../binnaryGoose/drivers/sound/sound.o ../../../binnaryGoose/fs/exfs/dir.o
 	ld -shared -Bsymbolic \
 		-L../../../gnu-efi/x86_64/lib \
 		-L../../../gnu-efi/x86_64/gnuefi \
 		-T ../../../gnu-efi/gnuefi/elf_x86_64_efi.lds \
 		../../../gnu-efi/x86_64/gnuefi/crt0-efi-x86_64.o \
-		boot.o ../../init/init.o ../../exfs/fs.o ../../exfs/buffer.o ../../drivers/sound.o \
+		boot.o ../../../binnaryGoose/init/init.o ../../../binnaryGoose/fs/fs.o ../../../binnaryGoose/fs/buffer.o ../../../binnaryGoose/drivers/sound/sound.o ../../../binnaryGoose/fs/exfs/dir.o \
 		-o booti.so -lgnuefi -lefi
 clean:
 	rm -rf boot.o
@@ -47,3 +50,4 @@ clean:
 	rm -rf ../../exfs/buffer.o
 	rm -rf ../../drivers/audio.o
 	rm -rf ../../drivers/sound.o
+	rm -rf ../../fs/exfs/dir.o

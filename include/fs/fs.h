@@ -1,9 +1,13 @@
+#include <sys/types.h>
+
 #ifndef GOOSE_FS_H
 #define GOOSE_FS_H
 void fs();
 void fs_init();
 void buff_init();
 void buff_main();
+void create_block(int block);
+void free_block(int device, int block);
 extern int exec_file();
 extern int close_file();
 extern int new_file();
@@ -27,9 +31,8 @@ struct file{
     unsigned short mode;
     unsigned short flags;
     unsigned short id;
-    struct m_inode * f_inode;
 };
 
-void create_block(struct m_inode * inode, int block);
-void free_block(int device, int block);
+struct inode {
+};
 #endif

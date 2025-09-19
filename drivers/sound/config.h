@@ -1,6 +1,9 @@
 #ifndef GOOSE_SOUND_H
 #define GOOSE_SOUND_H
+#include <stddef.h>
 
+void open_device(int device);
+void audio(int device);
 /*------------------------------------------*/
 /*Macroses ---------------------------------*/
 /*------------------------------------------*/

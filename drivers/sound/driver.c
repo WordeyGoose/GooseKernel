@@ -1,11 +1,10 @@
-#include <drivers/sound/sound.h>
 #include "config.h"
 
 static int not_write_buffer[MAXDSPDEVICE];
 
 void open_device(int device){
 	int bits;
-	int type_device;
+	int type_device = device & 0x0f;
 	device = device >> 4;
 	if (type_device == BITS16){
 		bits = 16;
@@ -17,7 +16,4 @@ void open_device(int device){
 
 void audio(int device){
 	device = device >> 4;
-}
-
-void audio_w(){
 }

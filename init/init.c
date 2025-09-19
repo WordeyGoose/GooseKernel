@@ -1,16 +1,14 @@
 #include <sys/init.h>
 #include <fs/fs.h>
-#include <drivers/sound/sound.h>
-#include <efi.h>
-#include <efilib.h>
+#include <sound/config.h>
 
 
 //--------------------------------------------//
 //-----------------INIT-----------------------//
 //-------------------------------------------//
+
 void maininit(){
-	int device;
-	Print(L"[2] Init Loaded Succesfully\n");
+	int device = 0;
 	fs_init();
 	fs();
 	buff_init();
@@ -22,9 +20,9 @@ void maininit(){
 //-------------FS------------------------//
 //---------------------------------------//
 void fs_init(){
-	Print(L"[3] Init FS\n");
+	
 }
 
 void buff_init(){
-	Print(L"[5] Initialize Buffer\n");
+	
 }
